@@ -97,4 +97,4 @@ app.use((err, req, res, next) => {
 
 app.use(middleware.final);
 
-app.listen(3000);
+app.listen(Config.listenPort);

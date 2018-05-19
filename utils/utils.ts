@@ -175,21 +175,21 @@ export default Instance(class Utils {
         return object;
     }
 
-    filter_tarball_urls (pkg, req, config: any = {}) {
+    filter_tarball_urls (pkg, req) {
         const filter = (_url) => {
             if (!req.headers.host) return _url;
             const filename = URL.parse(_url).pathname.replace(/^.*\//, '');
             let result: any;
-            if (config.url_prefix !== null) {
-                result = config.url_prefix.replace(/\/$/, '');
+            if (Config.url_prefix !== null) {
+                result = Config.url_prefix.replace(/\/$/, '');
             } else {
                 result = req.protocol + '://' + req.headers.host;
             }
             return result + '/' + pkg.name.replace(/\//g, '%2f') + '/-/' + filename;
         };
 
-        for (const ver in pkg.versions) {
-            const dist = pkg.versions[ver].dist;
+        for (const version in pkg.versions) {
+            const dist = pkg.versions[version].dist;
             if (dist != null && dist.tarball != null) {
                 dist.tarball = filter(dist.tarball);
             }
