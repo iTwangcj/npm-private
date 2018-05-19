@@ -192,7 +192,7 @@ export default Instance(class Registry {
                 const dirPath = path.join(__dirname, '../storage', result.name);
                 fse.ensureDirSync(dirPath);
                 const outPath = path.resolve(dirPath, fileName);
-                let stream = fs.createWriteStream(outPath);
+                const stream = fs.createWriteStream(outPath);
                 request(tgzUrl).pipe(stream).on('close', () => {
                     console.log('文件[' + fileName + ']下载完毕');
                     return resolve(true);
